@@ -1,6 +1,6 @@
 workflow  "Delete Event Payload" {
 	on = "delete"
-	resolves = "Echo Payload"
+	resolves = "Echo"
 }
 
 action "Echo Payload" {
@@ -10,11 +10,13 @@ action "Echo Payload" {
 }
 
 action "Filter" {
-	uses = "actions/filter"
+	needs = "Echo Payload"
+	uses = "actions/filter@master"
 	runs = "deleted_branch branch"
 }
 
 action "Echo" {
+	needs = "Filter"
 	uses = "docker://alpine"
 	runs = "echo"
 	args = "success"
