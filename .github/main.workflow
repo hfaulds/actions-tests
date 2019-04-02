@@ -5,5 +5,6 @@ workflow  "Delete Event Payload" {
 
 action "Echo Payload" {
 	uses = "docker://alpine"
-	runs = "cat $GITHUB_EVENT_PATH"
+	runs = "sh"
+	args = ["-c", "cat $GITHUB_EVENT_PATH"]
 }
